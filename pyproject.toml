@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tand"
+version = "1.0.0"
+description = "TAND: Tissue-Aware Nuclei Detection and Classification under Point-Level Supervision"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "CC-BY-NC-4.0"}
+authors = [
+    {name = "Kesi Xu", email = "kesi.xu@warwick.ac.uk"},
+    {name = "Eleni Chiou"},
+    {name = "Ali Varamesh"},
+    {name = "Laura Acqualagna"},
+    {name = "Nasir Rajpoot"},
+]
+keywords = [
+    "computational pathology",
+    "nuclei detection",
+    "cell classification",
+    "point supervision",
+    "tissue-aware",
+    "FiLM conditioning",
+    "histopathology",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: Other/Proprietary License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "torch>=2.1",
+    "torchvision>=0.16",
+    "timm>=1.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=1.5",
+    "Pillow>=9.4",
+    "tqdm>=4.66",
+    "matplotlib>=3.7",
+    "scikit-image>=0.21",
+    "opencv-python>=4.8",
+    "huggingface_hub>=0.20",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.4",
+    "ruff>=0.6",
+    "pytest>=8.2",
+    "pytest-cov>=4.1",
+    "mypy>=1.10",
+    "types-Pillow",
+    "types-PyYAML",
+]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+include = ["tand*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["tand"]
+combine-as-imports = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --color=yes"
+testpaths = ["tests"]

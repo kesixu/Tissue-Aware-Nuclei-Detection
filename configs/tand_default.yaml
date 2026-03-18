@@ -1,0 +1,69 @@
+# =============================================================================
+# TAND Default Configuration (V7a — best performing)
+# =============================================================================
+# This configuration reproduces the paper's best results on the PUMA benchmark:
+#   - Detection F1:       0.864 +/- 0.008
+#   - Classification Macro-F1: 0.398
+#
+# Architecture: EfficientUNet detection backbone + Virchow2 tissue branch
+#               + Spatial-FiLM conditioning on classification path
+# =============================================================================
+
+# --- Model ---
+model: virchow_fused
+trainer: virchow_fused
+fusion_model: efficient          # "efficient" (EfficientNet) or "dino" (DINOv3-ConvNeXt)
+
+# --- Spatial-FiLM ---
+mode: film_only                  # baseline | film_only | bias_only | film_bias
+film_limit: 0.5                  # tanh bound for gamma/beta modulation
+film_start_epoch: 20             # warmup: FiLM disabled for first N epochs
+
+# --- Tissue segmentation pretrain (Phase 1) ---
+pretrain_seg_epochs: 50
+pretrain_lr: 0.0002
+pretrain_lr_schedule: cosine
+pretrain_amp: "off"              # CRITICAL: AMP must be off for stable detection
+pretrain_earlystop_patience: -1  # -1 disables early stopping
+pretrain_batch_size: 6           # L4: 6, A100: 10
+
+# --- Main training (Phase 2) ---
+epochs: 200
+batch_size: 2                    # L4: 2, A100: 8
+lr_schedule: cosine
+lr_warmup_epochs: 10
+train_amp: "off"                 # CRITICAL: AMP breaks detection head
+save_every: 20                   # checkpoint interval
+
+# --- Detection head ---
+det_thr: 0.35                    # detection threshold
+nms_radius: 3                    # NMS radius for peak detection
+match_radius: 15                 # greedy matching radius for evaluation
+heat_focal_alpha: 0.25           # sigmoid focal loss alpha
+heat_focal_gamma: 2.0            # sigmoid focal loss gamma
+
+# --- Classification head ---
+cls_focal_gamma: 2.0             # focal loss gamma for classification
+cls_class_weights: "1.03,1.77,0.69,0.18,0.50,1.01,0.91,1.59,2.03,0.28"
+                                 # sqrt inverse-frequency weights (PUMA 10 classes)
+
+# --- Loss weights ---
+heat_loss_weight: 1.0
+cls_loss_weight: 1.0
+seg_loss_weight: 0.3
+
+# --- Tissue prior bias (disabled by default) ---
+lam_bias: 0.0
+conf_thr: 0.6
+tau: 1.0
+
+# --- Data augmentation (V7a feature) ---
+augment: true                    # HFlip + VFlip + Rot90 + ColorJitter
+oversample_rare: 3.0             # rare-class oversampling boost factor
+
+# --- Tissue ---
+num_tissue: 6                    # number of tissue classes
+
+# --- Input ---
+data_mode: full                  # "full" for full-size WSI patches
+full_resize: 1024                # resize input to 1024x1024
