@@ -26,13 +26,13 @@ This is the official implementation of **TAND** (Tissue-Aware Nuclei Detection),
 
 > **[Tissue-Aware Nuclei Detection and Classification in Histopathology Images under Point-Level Supervision](https://arxiv.org/abs/2511.13615)**
 >
-> [Kesi Xu](https://github.com/kesixu)<sup>1</sup>, Eleni Chiou<sup>2</sup>, Ali Varamesh<sup>2</sup>, Laura Acqualagna<sup>2</sup>, [Nasir Rajpoot](https://warwick.ac.uk/fac/cross_fac/tia/people/ayatollah/)<sup>1</sup>
+> [Kesi Xu](https://warwick.ac.uk/fac/cross_fac/tia/people/hp-contents/kesixu/)<sup>1</sup>, Eleni Chiou<sup>2</sup>, Ali Varamesh<sup>2</sup>, Laura Acqualagna<sup>2</sup>, [Nasir Rajpoot](https://warwick.ac.uk/fac/sci/dcs/people/nasir_rajpoot/)<sup>1</sup>
 >
 > <sup>1</sup> University of Warwick &nbsp;&nbsp; <sup>2</sup> GSK
 
 <p align="center">
-  <img src="assets/tia_logo.png" alt="TIA Centre" height="50">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/gsk_logo.png" alt="GSK" height="50">
+  <img src="assets/tia_logo.png" alt="TIA Centre" height="80">&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/gsk_logo.png" alt="GSK" height="80">
 </p>
 
 **What is TAND?** — Most cell detection methods either require expensive dense mask annotations, or ignore the tissue microenvironment when classifying nuclei. TAND introduces **Spatial-FiLM conditioning** to selectively inject tissue context into the classification pathway while keeping the detection pathway unmodulated. This enables accurate nuclei typing using only **point-level annotations** (~7x cheaper than masks), outperforming the mask-supervised HoVerNeXt baseline.
@@ -223,8 +223,8 @@ If you find this work useful, please cite our paper:
 ## Acknowledgements
 
 <p align="center">
-  <img src="assets/tia_logo.png" alt="TIA Centre" height="45">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/gsk_logo.png" alt="GSK" height="45">
+  <img src="assets/tia_logo.png" alt="TIA Centre" height="80">&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/gsk_logo.png" alt="GSK" height="80">
 </p>
 
 - [Tissue Image Analytics (TIA) Centre](https://warwick.ac.uk/fac/cross_fac/tia/), University of Warwick
